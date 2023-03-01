@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Chirp;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,7 +19,7 @@ class ChirpController extends Controller
     public function index(): InertiaResponse
     {
         return Inertia::render('Chirps/Index', [
-            'chirps' => Chirp::with('user:id,name')->latest()->get()
+            'chirpsList' => Chirp::with('user:id,name')->orderByDesc("id")->get()
         ]);
     }
 
